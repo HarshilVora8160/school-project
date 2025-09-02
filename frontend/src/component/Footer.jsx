@@ -55,7 +55,7 @@ const Footer = () => {
                             </div>
 
                             <div className='py-1' >
-                                <span className='hover:text-blue-400 hover:underline hover:cursor-pointer' onClick={handleScrollToTop}>Contact No : 8160340653</span>
+                                <span className='hover:text-blue-400 hover:underline hover:cursor-pointer' onClick={handleScrollToTop}>Contact No : +91 1234567890</span>
                             </div>
                             <div className='py-1' >
                                 <span className='hover:text-blue-400 hover:underline hover:cursor-pointer' onClick={handleScrollToTop} >Email : harshilvora8160@gmail.com</span>
