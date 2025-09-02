@@ -1,0 +1,1 @@
+export const GENERAL_API="http://localhost:3001/api"
