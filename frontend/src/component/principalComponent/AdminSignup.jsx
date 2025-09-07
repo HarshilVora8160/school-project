@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import Navbar from "../Navbar"
@@ -7,9 +6,8 @@ import { GENERAL_API } from "../../../generalApi"
 
 const PrincipalSignup = () => {
 
-    const [adminError,setAdminError] = useState('')
-    console.log("adminError------",adminError);
-    
+    const [adminError, setAdminError] = useState('')
+    console.log("adminError------", adminError);
 
     const [adminObject, setAdminObject] = useState({
         firstName: "",
@@ -35,7 +33,7 @@ const PrincipalSignup = () => {
             yearOfGraduation: ""
         }
     })
-    console.log("adminObject-------", adminObject);
+    // console.log("adminObject-------", adminObject);
 
     const addressData = [
         { state: "Andhra Pradesh", city: "Ahmedabad", country: "Afghanistan" },
@@ -93,6 +91,20 @@ const PrincipalSignup = () => {
         })
     }
 
+    const validateEmail = (e) => {
+        const inputEmail = e.target.value;
+        setAdminObject({
+            ...adminObject, contactDetails: { ...adminObject.contactDetails, [e.target.name]: e.target.value }
+        });
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (!emailRegex.test(inputEmail)) {
+            setAdminError({ emailError: 'Please enter a valid email address.' });
+        } else {
+            setAdminError('');
+        }
+    };
+
     const contactInputHandler = (e) => {
         setAdminError('')
         setAdminObject({
@@ -128,17 +140,27 @@ const PrincipalSignup = () => {
 
     const adminSubmitHandler = async () => {
         setAdminError('')
-        const adminObject = adminObject || {};
-        const {firstName,lastName,dob,gender,contactDetails,employmentDetails,educationDetails} = adminObject
-        const {email,contactNumber,address} = contactDetails
-        const {city,state,country} = address
-        const {hireDate,salary} = employmentDetails
-        const {qualification,yearOfGraduation} =educationDetails
+        const { firstName, lastName, dob, gender, contactDetails, employmentDetails, educationDetails } = adminObject
+        const { email, contactNumber, address } = contactDetails
+        const { city, state, country } = address
+        const { hireDate, salary } = employmentDetails
+        const { qualification, yearOfGraduation } = educationDetails
+        console.log("email-----------", email);
 
-        const checkAllFields = [firstName,lastName,dob,gender,email,contactNumber,city,state,country,hireDate,salary,qualification,yearOfGraduation].some(ele => ele === "");
-        if(checkAllFields) return setAdminError({errorMessage:"all fields are required!"})
-        
-        
+
+        const checkAllFields = [firstName, lastName, dob, gender, email, contactNumber, city, state, country, hireDate, salary, qualification, yearOfGraduation].some(ele => ele === "");
+        if (checkAllFields) return setAdminError({ errorMessage: "all fields are required!" })
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (!email) {
+            setAdminError({ ...adminError, emailError: "Entar email" })
+        } else if (!emailRegex.test(email)) {
+            setAdminError({ emailError: 'Please enter a valid email address.' });
+        } else {
+            setAdminError('');
+        }
+
         const submitData = await axios.post(`${GENERAL_API}/admin-signup`,
             adminObject,
             {
@@ -146,7 +168,7 @@ const PrincipalSignup = () => {
                     'Content-Type': 'application/json',
                 }
             })
-        console.log("submitData----------",submitData);
+        console.log("submitData----------", submitData);
     }
 
     return (
@@ -203,7 +225,10 @@ const PrincipalSignup = () => {
                             <label className="opacity-50 text-white">Contact Details : </label>
                             <div className="py-1">
                                 {/* <label className="text-gray-300">Email : </label> */}
-                                <input type="text" name="email" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email@flowbite.com" required onChange={contactInputHandler} />
+                                <input type="text" name="email" className="mb-2 bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email@flowbite.com" required onChange={validateEmail} />
+                                <span className="text-red-400" >
+                                    {adminError?.emailError ? adminError?.emailError : ""}
+                                </span>
                             </div>
                             <div className="py-5">
                                 {/* <label className="text-gray-300" >Phone Number : </label> */}
