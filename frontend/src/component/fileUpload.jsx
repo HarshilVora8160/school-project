@@ -1,8 +1,8 @@
 const FileUpload = () => {
     return (
         <form action="/upload" method="POST" encType="multipart/form-data" >
-            <input type="file" name="profileImage" />
-            <button type="submit" >Upload</button>
+            <input type="file" name="profileImage" className="text-white" />
+            <button type="submit" className="text-white" >Upload</button>
         </form>
     )
 }

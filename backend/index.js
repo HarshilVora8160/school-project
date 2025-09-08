@@ -28,8 +28,10 @@ const serverStart = async () => {
 
         app.use('/api', router)
 
-        app.post("/upload", (req,res,next) => {
-
+        app.post("/upload", upload.single("profileImage"), (req,res,next) => {
+            console.log("req.body-----------------",req.body);
+            console.log("req.file-----------------",req.file);
+            return res.redirect('/')
         })
     } catch (error) {
         console.log(error)
