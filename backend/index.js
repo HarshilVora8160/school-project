@@ -1,14 +1,18 @@
 const express = require('express');
 const ConnectDb = require('./db');
 const router = require('./routes/SchoolRouter');
+const multer = require("multer")
+
 require('dotenv').config();
 const cors = require('cors')
+
+const upload = multer({dest :"uploads/"})
 
 const PORT = process.env.PORT || 4001
 
 
 const app = express();
-app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 app.use(cors())
 
 const serverStart = async () => {
@@ -23,6 +27,10 @@ const serverStart = async () => {
         })
 
         app.use('/api', router)
+
+        app.post("/upload", (req,res,next) => {
+
+        })
     } catch (error) {
         console.log(error)
     }
