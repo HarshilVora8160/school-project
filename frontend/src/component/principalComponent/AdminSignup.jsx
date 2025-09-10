@@ -3,10 +3,7 @@ import { Link } from "react-router-dom"
 import Navbar from "../Navbar"
 import axios from "axios"
 import { GENERAL_API } from "../../../generalApi"
-import FileUpload from "../fileUpload"
 
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -20,12 +17,9 @@ import Select from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import TextField from '@mui/material/TextField';
-import Menu from "@mui/material/Menu"
 
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 const PrincipalSignup = () => {
 
@@ -233,12 +227,13 @@ const PrincipalSignup = () => {
                                 <div className="col-span-6 flex w-full" >
                                     <Box
                                         component="form"
-                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
                                         sx={{
-                                            input: { color: "white", width: '30ch' },                // text color
-                                            "& .MuiInputLabel-root": { color: "white" }, // label color
-                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
-                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                            "& .MuiTextField-root": { width: "30ch" },     // all TextFields
+                                            "& .MuiInputBase-root": { height: 50 },        // adjust height
+                                            "& input": { color: "white" },                 // text color
+                                            "& .MuiInputLabel-root": { color: "white" },   // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" },
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },
                                         }}
                                         noValidate
                                         autoComplete="off"
@@ -247,18 +242,19 @@ const PrincipalSignup = () => {
                                     </Box>
                                 </div>
                                 <div className="col-span-6 flex w-full" >
+
                                     <Box
                                         component="form"
-                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
                                         sx={{
-                                            input: { color: "white", width: '30ch' },                // text color
-                                            "& .MuiInputLabel-root": { color: "white" }, // label color
-                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
-                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                            "& .MuiTextField-root": { width: "30ch" },     // all TextFields
+                                            "& .MuiInputBase-root": { height: 50 },        // adjust height
+                                            "& input": { color: "white" },                 // text color
+                                            "& .MuiInputLabel-root": { color: "white" },   // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" },
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },
                                         }}
                                         noValidate
                                         autoComplete="off"
-                                        InputP
                                     >
                                         <TextField id="filled-basic" label="Last Name" variant="filled" type="text" name="lastName" placeholder="Enter last name..." required onChange={adminInputHandler} />
                                     </Box>
@@ -470,6 +466,19 @@ const PrincipalSignup = () => {
                                             onChange={(newValue) => {
                                                 adminInputHandler(newValue);
                                             }}
+                                        />
+                                    </LocalizationProvider>
+
+                                    {/* //////////////////////////////////////////////// */}
+
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DatePicker
+                                            label="Pick a date"
+                                            // value={adminObject.dob}
+                                            onChange={(newValue) => {
+                                                adminInputHandler(newValue);
+                                            }}
+                                            name="date"
                                         />
                                     </LocalizationProvider>
                                 </div>
