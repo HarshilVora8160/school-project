@@ -5,7 +5,35 @@ import axios from "axios"
 import { GENERAL_API } from "../../../generalApi"
 import FileUpload from "../fileUpload"
 
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import TextField from '@mui/material/TextField';
+import Menu from "@mui/material/Menu"
+
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+
 const PrincipalSignup = () => {
+
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
 
     const [adminError, setAdminError] = useState('')
     console.log("adminError------", adminError);
@@ -34,7 +62,7 @@ const PrincipalSignup = () => {
             yearOfGraduation: ""
         }
     })
-    // console.log("adminObject-------", adminObject);
+    console.log("adminObject-------", adminObject);
 
     const addressData = [
         { state: "Andhra Pradesh", city: "Ahmedabad", country: "Afghanistan" },
@@ -85,14 +113,16 @@ const PrincipalSignup = () => {
     ];
 
     const adminInputHandler = (e) => {
+        // console.log("e------------------", e);
         setAdminError('')
         setAdminObject({
             ...adminObject,
             [e.target.name]: e.target.value
         })
-    }
+    };
 
     const validateEmail = (e) => {
+        setAdminError("")
         const inputEmail = e.target.value;
         setAdminObject({
             ...adminObject, contactDetails: { ...adminObject.contactDetails, [e.target.name]: e.target.value }
@@ -140,6 +170,8 @@ const PrincipalSignup = () => {
     }
 
     const adminSubmitHandler = async () => {
+        console.log("dbsjfhjgygyb");
+
         setAdminError('')
         const { firstName, lastName, dob, gender, contactDetails, employmentDetails, educationDetails } = adminObject
         const { email, contactNumber, address } = contactDetails
@@ -179,14 +211,13 @@ const PrincipalSignup = () => {
             </div>
             <div className="p-[2px] bg-gradient-to-r via-purple-500 " ></div>
             <div className="flex justify-center items-center " >
-                <div className="bg-gray-800 flex p-8 rounded-xl my-5 border-2 border-gray-700" >
-                    <div className="max-w-sm mx-auto">
+                <div className="bg-gray-600 flex p-8 rounded-xl my-5 border-2 border-gray-700" >
+                    <div className="w-[650px]">
                         <div className="flex justify-center " >
                             <img className="h-12 rounded-full" src="https://thumbs.dreamstime.com/b/education-badge-logo-design-university-high-school-emblem-education-badge-logo-design-university-high-school-emblem-151924849.jpg" />
                         </div>
 
-                        {/* introduction section */}
-                        <div className="flex justify-center py-5 " >
+                        <div className="flex justify-center py-5" >
                             <div>
                                 <div className="flex justify-center" >
                                     <h1 className="font-semibold text-white text-xl" >Admin SignUp</h1>
@@ -196,148 +227,332 @@ const PrincipalSignup = () => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="grid grid-cols-12 gap-4" >
-                            <div className="col-span-12 py-1">
-                                <input type="text" name="firstName" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter first name..." required onChange={adminInputHandler} />
+                            <div className="col-span-12 py-1 flex">
+                                <div className="col-span-6 flex w-full" >
+                                    <Box
+                                        component="form"
+                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                        sx={{
+                                            input: { color: "white", width: '30ch' },                // text color
+                                            "& .MuiInputLabel-root": { color: "white" }, // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                    >
+                                        <TextField id="filled-basic" label="First Name" variant="filled" type="text" name="firstName" placeholder="Enter first name..." required onChange={adminInputHandler} />
+                                    </Box>
+                                </div>
+                                <div className="col-span-6 flex w-full" >
+                                    <Box
+                                        component="form"
+                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                        sx={{
+                                            input: { color: "white", width: '30ch' },                // text color
+                                            "& .MuiInputLabel-root": { color: "white" }, // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                        InputP
+                                    >
+                                        <TextField id="filled-basic" label="Last Name" variant="filled" type="text" name="lastName" placeholder="Enter last name..." required onChange={adminInputHandler} />
+                                    </Box>
+                                </div>
                             </div>
-                            <div className="col-span-12 py-1">
-                                <input type="text" name="lastName" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter last name..." required onChange={adminInputHandler} />
+                            <div className="col-span-6 py-1 flex">
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        label="Pick a date"
+                                        // value={adminObject.dob}
+                                        onChange={(newValue) => {
+                                            adminInputHandler(newValue);
+                                        }}
+                                    />
+                                </LocalizationProvider>
                             </div>
-                            <div className="col-span-12 py-1">
-                                <p className="text-gray-400" >Date of birth</p>
-                                <input type="date" name="dob" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required onChange={adminInputHandler} />
+
+                            {/* Gender selector */}
+                            <div className="py-3 flex col-span-6 items-center" >
+                                <h1 className="me-3 text-md text-gray-400" >Gender : </h1>
+                                <div className="flex gap-1" >
+                                    <input type="radio" name="gender" value="male" id="male" onChange={adminInputHandler} />
+                                    <label htmlFor="male" className="text-gray-400" >Male</label>
+                                    <input type="radio" name="gender" value="female" id="female" onChange={adminInputHandler} />
+                                    <label htmlFor="female" className="text-gray-400" >Female</label>
+                                    <input type="radio" name="gender" value="other" id="other" onChange={adminInputHandler} />
+                                    <label htmlFor="other" className="text-gray-400" >Other</label>
+                                </div>
                             </div>
                         </div>
-                        <div className="py-3 flex" >
-                            <h1 className="me-3 text-md text-gray-400" >Gender : </h1>
-                            <div className="flex gap-1" >
-                                <input type="radio" name="gender" value="male" id="male" onChange={adminInputHandler} />
-                                <label htmlFor="male" className="text-gray-400" >Male</label>
-                                <input type="radio" name="gender" value="female" id="female" onChange={adminInputHandler} />
-                                <label htmlFor="female" className="text-gray-400" >Female</label>
-                                <input type="radio" name="gender" value="other" id="other" onChange={adminInputHandler} />
-                                <label htmlFor="other" className="text-gray-400" >Other</label>
+
+                        {/* introduction section */}
+                        <div className="grid grid-cols-12" >
+                            <label className="opacity-50 text-white col-span-12 my-2">Contact Details : </label>
+                            <div className="col-span-6 w-full" >
+                                <div className="col-span-12" >
+                                    <Box
+                                        component="form"
+                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                        sx={{
+                                            input: { color: "white", width: '30ch' },                // text color
+                                            "& .MuiInputLabel-root": { color: "white" }, // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                    >
+                                        <TextField id="filled-basic" label="Email" variant="filled" type="text" name="email" placeholder="enter your email..." required onChange={validateEmail} />
+                                    </Box>
+                                </div>
+                                <span className="flex col-span-12 text-red-500 my-2" >
+                                    {adminError?.emailError ? adminError?.emailError : ""}
+                                </span>
+                            </div>
+
+                            <div className="col-span-6 flex w-full" >
+                                <Box
+                                    component="form"
+                                    // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                    sx={{
+                                        input: { color: "white", width: '30ch' },                // text color
+                                        "& .MuiInputLabel-root": { color: "white" }, // label color
+                                        "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                        "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+                                    <TextField id="filled-basic" label="Password" variant="filled" type="text" name="password" placeholder="enter password..." required onChange={adminInputHandler} />
+                                </Box>
+                            </div>
+                            <div className="col-span-6 flex w-full" >
+                                <Box
+                                    component="form"
+                                    // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                    sx={{
+                                        input: { color: "white", width: "30ch" },                // text color
+                                        "& .MuiInputLabel-root": { color: "white" }, // label color
+                                        "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                        "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+                                    <TextField id="filled-basic" label="Contact Number" variant="filled" type="password" name="password" placeholder="enter password..." required onChange={contactInputHandler} />
+                                </Box>
                             </div>
                         </div>
                         {/* introduction section end */}
 
+
+
                         {/* contact section */}
                         <div className="py-2" >
-                            <label className="opacity-50 text-white">Contact Details : </label>
-                            <div className="py-1">
-                                {/* <label className="text-gray-300">Email : </label> */}
-                                <input type="text" name="email" className="mb-2 bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email@flowbite.com" required onChange={validateEmail} />
-                                <span className="text-red-400" >
-                                    {adminError?.emailError ? adminError?.emailError : ""}
-                                </span>
-                            </div>
-                            <div className="py-5">
-                                {/* <label className="text-gray-300" >Phone Number : </label> */}
-                                <input type="number" name="contactNumber" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter contact number..." required onChange={contactInputHandler} />
-                            </div>
-
                             {/* Address section */}
-                            <label className="opacity-50 text-gray-300" >Address : </label>
-                            <div className="py-1 grid grid-cols-12 gap-2 ">
-                                <div className="col-span-12" >
-                                    {/* <label className="text-gray-300" >City : </label> */}
-                                    <select className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" name="city" onChange={addressInputHandler}>
-                                        <option>Choose a city</option>
-                                        {
-                                            addressData?.map((ele, idx) => {
-                                                return (
-                                                    <>
-                                                        <option value={ele.city}>{ele.city}</option>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div>
+                            <label className="opacity-50 text-gray-300 flex my-3" >Address : </label>
+                            <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel
+                                        id="demo-simple-select-label"
+                                        sx={{ color: "white", "&.Mui-focused": { color: "white" } }}
+                                    >
+                                        City
+                                    </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        name="address"   // 👈 matches the key inside contactDetails
+                                        value={adminObject.contactDetails.address}
+                                        label="City"
+                                        onChange={contactInputHandler}
+                                        sx={{
+                                            color: "white",
+                                            ".MuiSvgIcon-root": { color: "white" }
+                                        }}
+                                    >
+                                        {addressData?.map((ele, idx) => (
+                                            <MenuItem key={idx} value={ele.city}>
+                                                {ele.city}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Box>
 
+                            <div className=" grid grid-cols-12 gap-2 ">
                                 <div className="col-span-6 py-4" >
-                                    {/* <label className="text-gray-300" >State :</label> */}
-                                    <select className="bg-gray-700 border text-gray-300  border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" name="state" onChange={addressInputHandler}>
-                                        <option>Select State...</option>
-                                        {
-                                            addressData?.map((ele, idx) => {
-                                                return (
-                                                    <>
-                                                        <option value={ele.state}>{ele.state}</option>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                    </select>
+                                    <Box sx={{ minWidth: 120 }}>
+                                        <FormControl fullWidth>
+                                            <InputLabel
+                                                id="demo-simple-select-label"
+                                                sx={{ color: "white", "&.Mui-focused": { color: "white" } }}
+                                            >
+                                                State
+                                            </InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                name="address"   // 👈 matches the key inside contactDetails
+                                                value={adminObject.contactDetails.address}
+                                                label="state"
+                                                onChange={contactInputHandler}
+                                                sx={{
+                                                    color: "white",
+                                                    ".MuiSvgIcon-root": { color: "white" }
+                                                }}
+                                            >
+                                                {addressData?.map((ele, idx) => (
+                                                    <MenuItem key={idx} value={ele.state}>
+                                                        {ele.state}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
                                 </div>
                                 <div className="col-span-6 py-4" >
                                     {/* <label className="text-gray-300" >Country : </label> */}
-                                    <select className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500" name="country" onChange={addressInputHandler}>
-                                        <option>Select Country...</option>
-                                        {
-                                            addressData?.map((ele, idx) => {
-                                                return (
-                                                    <>
-                                                        <option value={ele.country}>{ele.country}</option>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                    </select>
+                                    <Box sx={{ minWidth: 120 }}>
+                                        <FormControl fullWidth>
+                                            <InputLabel
+                                                id="demo-simple-select-label"
+                                                sx={{ color: "white", "&.Mui-focused": { color: "white" } }}
+                                            >
+                                                Country
+                                            </InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                name="address"   // 👈 matches the key inside contactDetails
+                                                value={adminObject.contactDetails.address}
+                                                label="Country"
+                                                onChange={contactInputHandler}
+                                                sx={{
+                                                    color: "white",
+                                                    ".MuiSvgIcon-root": { color: "white" }
+                                                }}
+                                            >
+                                                {addressData?.map((ele, idx) => (
+                                                    <MenuItem key={idx} value={ele.country}>
+                                                        {ele.country}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+
                                 </div>
                             </div>
                             {/* Address section end */}
                         </div>
                         {/* contact section end */}
 
+
+
                         {/* Employeement section  */}
                         <div>
-                            <div className="py-1" >
+                            <div className="pb-3" >
                                 <span className="opacity-50 text-gray-300" >Employment Details : </span>
                             </div>
+
                             <div className="grid grid-cols-12 gap-2" >
-                                <div className="col-span-6" >
-                                    {/* <span className="text-gray-300" >Hire date : </span> */}
-                                    <input type="date" name="hireDate" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="type your age.." required onChange={employeeDetailsHandler} />
+                                <div className="col-span-6 flex">
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DatePicker
+                                            label="Pick a date"
+                                            // value={adminObject.dob}
+                                            onChange={(newValue) => {
+                                                adminInputHandler(newValue);
+                                            }}
+                                        />
+                                    </LocalizationProvider>
                                 </div>
+
                                 <div className="col-span-6 flex items-center gap-2" >
                                     <input type="checkbox" name="employmentStatus" className="text-2xl" checked={adminObject.employmentDetails.employmentStatus} onChange={employeeDetailsHandler} />
                                     <p className="text-gray-400" >EmploymentStatus </p>
                                 </div>
-                                <div className="col-span-6 mb-3 py-4" >
-                                    {/* <span className="text-gray-300" >Hire date : </span> */}
-                                    <input type="text" name="salary" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="210000" required onChange={employeeDetailsHandler} />
+                                <div className="col-span-6" >
+                                    <Box
+                                        component="form"
+                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                        sx={{
+                                            input: { color: "white", width: '30ch' },                // text color
+                                            "& .MuiInputLabel-root": { color: "white" }, // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                    >
+                                        <TextField id="filled-basic" label="Salary" variant="filled" type="text" name="salary" placeholder={`${adminObject?.employmentDetails?.salary}`} required onChange={employeeDetailsHandler} />
+                                    </Box>
+                                    {/* <input type="text" name="salary" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="210000" required  /> */}
                                 </div>
-                                {/* <div className="col-span-6 mb-3 py-4" >
-                                    <label className="text-gray-300" >Salary : </label>
-                                    <select className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        {!selectedDepartmentSalary ? <option>Salary</option> : <option>{selectedDepartmentSalary}</option>}
-                                        <option>210000</option>
-                                    </select>
-                                </div> */}
 
                             </div>
                         </div>
                         {/* Employeement section end  */}
 
+
+
                         {/* Education Details section */}
-                        <div className="" >
+                        <div className="mt-5" >
                             <div>
                                 <span className="opacity-50 text-gray-300"  >Education Details : </span>
                             </div>
                             <div className="grid grid-cols-12 gap-2 py-1" >
-                                <div className="col-span-12" >
-                                    {/* <label className="text-gray-300" >highest Qualification</label> */}
-                                    <input type="text" name="qualification" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Qualification..." required onChange={educationDetailsHandler} />
+
+                                <div className="col-span-6" >
+                                    <Box
+                                        component="form"
+                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                        sx={{
+                                            input: { color: "white", width: '30ch' },                // text color
+                                            "& .MuiInputLabel-root": { color: "white" }, // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                    >
+                                        <TextField id="filled-basic" label="Qualification" variant="filled" type="text" name="qualification" placeholder="graduation details..." required onChange={educationDetailsHandler} />
+                                    </Box>
+                                    {/* <input type="text" name="qualification" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Qualification..." required onChange={educationDetailsHandler} /> */}
                                 </div>
-                                <div className="col-span-6 py-4" >
+                                <div className="col-span-6" >
                                     {/* <label className="text-gray-300" >Year Of Graduation</label> */}
-                                    <input type="number" name="yearOfGraduation" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="graduation year" required onChange={educationDetailsHandler} />
+                                    <Box
+                                        component="form"
+                                        // sx={{ '& > :not(style)': { m: 1, width: '30ch', color: 'white', input: { color: "white" } } }}
+                                        sx={{
+                                            input: { color: "white", width: '30ch' },                // text color
+                                            "& .MuiInputLabel-root": { color: "white" }, // label color
+                                            "& .MuiFilledInput-underline:before": { borderBottomColor: "white" }, // default underline
+                                            "& .MuiFilledInput-underline:after": { borderBottomColor: "white" },  // focused underline
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                    >
+                                        <TextField id="filled-basic" label="Qualification year" variant="filled" type="number" name="yearOfGraduation" placeholder="year..." required onChange={educationDetailsHandler} />
+                                    </Box>
+                                    {/* <input type="number" name="yearOfGraduation" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="graduation year" required onChange={educationDetailsHandler} /> */}
                                 </div>
 
-                                <FileUpload />
-                                <div className="col-span-6 flex items-center justify-end" >
-                                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={adminSubmitHandler} >Submit</button>
+                                {/* <FileUpload /> */}
+                                <div className="col-span-12 flex items-center pt-4" >
+                                    <Stack spacing={2} direction="row" color="success">
+                                        <Button variant="contained" color="primary" onClick={adminSubmitHandler} >
+                                            Success
+                                        </Button>
+                                    </Stack>
+                                    {/* <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={adminSubmitHandler} >Submit</button> */}
                                 </div>
                             </div>
                         </div>
