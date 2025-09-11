@@ -10,13 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import * as React from 'react';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import { DemoContainer } from '@mui/x-date-pickers/DemoContainer';
-import dayjs from 'dayjs';
 
 import TextField from '@mui/material/TextField';
 
@@ -243,8 +239,9 @@ const PrincipalSignup = () => {
                                     </Box>
                                 </div>
                             </div>
+
                             <div className="col-span-6 py-1 flex">
-                                <MyDatePicker />
+                                <MyDatePicker setAdminObject={setAdminObject}/>
                             </div>
 
                             {/* Gender selector */}
@@ -435,16 +432,7 @@ const PrincipalSignup = () => {
 
                             <div className="grid grid-cols-12 gap-2" >
                                 <div className="col-span-6 flex">
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DatePicker
-                                            label="Pick a date"
-                                            // value={adminObject.dob}
-                                            onChange={(newValue) => {
-                                                adminInputHandler(newValue);
-                                            }}
-                                        />
-                                    </LocalizationProvider>
-
+                                    <MyDatePicker />
                                 </div>
 
                                 <div className="col-span-6 flex items-center gap-2" >
