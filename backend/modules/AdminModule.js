@@ -46,10 +46,6 @@ const AdminSchema = mongoose.Schema({
         }
     },
     employmentDetails: {
-        hireDate: {
-            type: String,
-            required: true
-        },
         employmentStatus: {
             type: String,
             required: true

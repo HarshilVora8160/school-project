@@ -71,7 +71,6 @@ const StudentSignup = () => {
             }
         },
         employmentDetails: {
-            hireDate: "",
             department: "",
             employmentStatus: "",
             salary: ""

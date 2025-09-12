@@ -10,10 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
 import TextField from '@mui/material/TextField';
 
 import Stack from '@mui/material/Stack';
@@ -23,7 +19,8 @@ import MyDatePicker from "../datePicker"
 const PrincipalSignup = () => {
 
     const [adminError, setAdminError] = useState('')
-    console.log("adminError------", adminError);
+    // console.log("adminError------", adminError);
+
     const [emailDataError, setEmailDataError] = useState('')
 
     const [adminObject, setAdminObject] = useState({
@@ -42,7 +39,6 @@ const PrincipalSignup = () => {
             }
         },
         employmentDetails: {
-            hireDate: "",
             employmentStatus: "",
             salary: "210000"
         },
@@ -51,7 +47,7 @@ const PrincipalSignup = () => {
             yearOfGraduation: ""
         }
     })
-    console.log("adminObject-------", adminObject);
+    // console.log("adminObject-------", adminObject);
 
     const addressData = [
         { state: "Andhra Pradesh", city: "Ahmedabad", country: "Afghanistan" },
@@ -158,39 +154,75 @@ const PrincipalSignup = () => {
     }
 
     const adminSubmitHandler = async () => {
-        console.log("dbsjfhjgygyb");
+        try {
+            const { firstName, lastName, dob, gender, contactDetails, employmentDetails, educationDetails } = adminObject;
+            const { email, contactNumber, address, password } = contactDetails;
+            const { city, state, country } = address;
+            const { salary } = employmentDetails;
+            const { qualification, yearOfGraduation } = educationDetails;
 
-        setAdminError('')
-        const { firstName, lastName, dob, gender, contactDetails, employmentDetails, educationDetails } = adminObject
-        const { email, contactNumber, address } = contactDetails
-        const { city, state, country } = address
-        const { hireDate, salary } = employmentDetails
-        const { qualification, yearOfGraduation } = educationDetails
-        console.log("email-----------", email);
+            const checkAllFields = [
+                firstName, lastName, dob, gender, email,
+                contactNumber, password, city, state, country,
+                salary, qualification, yearOfGraduation
+            ].some(ele => ele === "");
 
+            if (checkAllFields) {
+                setAdminError({ errorMessage: "all fields are required!" });
+                return;
+            }
 
-        const checkAllFields = [firstName, lastName, dob, gender, email, contactNumber, city, state, country, hireDate, salary, qualification, yearOfGraduation].some(ele => ele === "");
-        if (checkAllFields) return setAdminError({ errorMessage: "all fields are required!" })
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!email) {
+                setAdminError({ ...adminError, emailError: "Enter email" });
+                return;
+            } else if (!emailRegex.test(email)) {
+                setAdminError({ emailError: 'Please enter a valid email address.' });
+                return;
+            } else {
+                setAdminError('');
+            }
 
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            const submitData = await axios.post(`${GENERAL_API}/admin-signup`, adminObject, {
+                headers: { 'Content-Type': 'application/json' }
+            });
 
-        if (!email) {
-            setAdminError({ ...adminError, emailError: "Entar email" })
-        } else if (!emailRegex.test(email)) {
-            setAdminError({ emailError: 'Please enter a valid email address.' });
-        } else {
-            setAdminError('');
+            console.log("submitData-----11111-----", submitData);
+        } catch (error) {
+            console.error("Signup failed:", error);
         }
+    };
 
-        const submitData = await axios.post(`${GENERAL_API}/admin-signup`,
-            adminObject,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-        console.log("submitData----------", submitData);
-    }
+
+    // const adminSubmitHandler = async () => {
+    //     const { firstName, lastName, dob, gender, contactDetails, employmentDetails, educationDetails } = adminObject
+    //     const { email, contactNumber, address,password } = contactDetails
+    //     const { city, state, country } = address
+    //     const { salary } = employmentDetails
+    //     const { qualification, yearOfGraduation } = educationDetails
+
+    //     const checkAllFields = [firstName, lastName, dob, gender, email, contactNumber,password, city, state, country, salary, qualification, yearOfGraduation].some(ele => ele === "");
+    //     if (checkAllFields) return setAdminError({ errorMessage: "all fields are required!" });
+    //     console.log("checkAllFields----------------------",checkAllFields);
+
+    //     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    //     if (!email) {
+    //         setAdminError({ ...adminError, emailError: "Entar email" })
+    //     } else if (!emailRegex.test(email)) {
+    //         setAdminError({...adminError, emailError: 'Please enter a valid email address.' });
+    //     } else {
+    //         setAdminError('');
+    //     }
+
+    //     console.log("submitData-----11111-----", submitData);
+    //     const submitData = await axios.post(`${GENERAL_API}/admin-signup`,
+    //         adminObject,
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         })
+    // }
 
     return (
         <div className="bg-gray-900" >
@@ -241,7 +273,7 @@ const PrincipalSignup = () => {
                             </div>
 
                             <div className="col-span-6 py-1 flex">
-                                <MyDatePicker setAdminObject={setAdminObject}/>
+                                <MyDatePicker setAdminObject={setAdminObject} />
                             </div>
 
                             {/* Gender selector */}
@@ -431,9 +463,9 @@ const PrincipalSignup = () => {
                             </div>
 
                             <div className="grid grid-cols-12 gap-2" >
-                                <div className="col-span-6 flex">
+                                {/* <div className="col-span-6 flex">
                                     <MyDatePicker />
-                                </div>
+                                </div> */}
 
                                 <div className="col-span-6 flex items-center gap-2" >
                                     <input type="checkbox" name="employmentStatus" className="text-2xl" checked={adminObject.employmentDetails.employmentStatus} onChange={employeeDetailsHandler} />
@@ -523,20 +555,20 @@ const PrincipalSignup = () => {
                                 </div>
 
                                 {/* <FileUpload /> */}
-                                <div className="col-span-12 flex items-center pt-4" >
+                                <div className="col-span-12 flex justify-center text-red-600" >
+                                    {adminError?.errorMessage ? adminError?.errorMessage : ""}
+                                </div>
+                                <div className="col-span-12 flex items-center justify-center" >
                                     <Stack spacing={2} direction="row" color="success">
                                         <Button variant="contained" color="primary" onClick={adminSubmitHandler} >
                                             Success
                                         </Button>
                                     </Stack>
-                                    {/* <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={adminSubmitHandler} >Submit</button> */}
                                 </div>
                             </div>
                         </div>
                         {/* Education Details section end */}
-
                     </div>
-
                 </div>
             </div>
         </div>

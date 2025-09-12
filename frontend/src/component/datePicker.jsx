@@ -6,11 +6,7 @@ import { useState } from 'react';
 
 const MyDatePicker = ({ setAdminObject }) => {
   // Set the initial date (26-11-2005) as a dayjs object
-  const initialDate = dayjs('26-11-2005', 'DD-MM-YYYY'); // Parse the date string to dayjs
-
-  const [selectedDate, setSelectedDate] = useState(initialDate); // Initialize state with the parsed date
-  console.log("selectedDate-------", selectedDate);
-
+  
   const handleDateChange = (val) => {
     const formatDate = (val) => new Date(val).toLocaleDateString('en-GB');
     setAdminObject((prev) => ({

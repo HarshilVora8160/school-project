@@ -46,10 +46,6 @@ const TeacherSchema = mongoose.Schema({
         }
     },
     employmentDetails:{
-        hireDate:{
-            type:String,
-            required:true
-        },
         department:{
             type:String,
             required:true
