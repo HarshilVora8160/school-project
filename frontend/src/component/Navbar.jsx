@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import TemporaryDrawer from "./Sidebar2";
 
 const Navbar = () => {
 
@@ -11,17 +13,14 @@ const Navbar = () => {
     return (
         <div className="" >
             <div className="px-10 py-3" >
-                {/* {
-                sideBar === true ?
-                    <Sidebar setSideBar={setSideBar} />
-                    : ''
-            } */}
                 <div className=" flex justify-between items-center px-5" >
+
                     <div className="flex gap-5 " >
-                        {/* <span className="flex text-3xl hover:cursor-pointer" onClick={() => setSideBar(true)} >&#8801;</span> */}
                         <span className="flex items-center gap-5 font-semibold text-2xl text-white "  ><Link to="/home" ><img className="h-12 rounded-full cursor-pointer" src="https://thumbs.dreamstime.com/b/education-badge-logo-design-university-high-school-emblem-education-badge-logo-design-university-high-school-emblem-151924849.jpg" /></Link> <Link to="/home" className="hover:cursor-pointer" >Sahjanand college</Link></span>
                     </div>
-                    <span className="text-white text-3xl hover:cursor-pointer sm:flex xl:hidden">&#8801;</span>
+
+                    <span className="text-white text-3xl hover:cursor-pointer sm:flex xl:hidden" onClick={() => setSideBar(!sideBar)} ><TemporaryDrawer /></span>
+
                     <div className="gap-5 hidden xl:flex" >
                         <div>
                             <button className="hover:cursor-pointer rounded-md border-2 border-blue-400 hover:text-blue-500 text-blue-300 text-sm p-3" onClick={() => navigate('/production')} >Production</button>
@@ -84,9 +83,14 @@ const Navbar = () => {
 
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
+
+                    
+
                 </div>
             </div>
         </div>
