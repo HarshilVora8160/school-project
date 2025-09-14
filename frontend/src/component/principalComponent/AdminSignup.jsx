@@ -19,7 +19,6 @@ import MyDatePicker from "../datePicker"
 const PrincipalSignup = () => {
 
     const [adminError, setAdminError] = useState('')
-    // console.log("adminError------", adminError);
 
     const [emailDataError, setEmailDataError] = useState('')
 
@@ -47,7 +46,7 @@ const PrincipalSignup = () => {
             yearOfGraduation: ""
         }
     })
-    // console.log("adminObject-------", adminObject);
+    console.log("adminObject-------", adminObject);
 
     const addressData = [
         { state: "Andhra Pradesh", city: "Ahmedabad", country: "Afghanistan" },
@@ -154,6 +153,8 @@ const PrincipalSignup = () => {
     }
 
     const adminSubmitHandler = async () => {
+        
+        
         try {
             const { firstName, lastName, dob, gender, contactDetails, employmentDetails, educationDetails } = adminObject;
             const { email, contactNumber, address, password } = contactDetails;

@@ -17,6 +17,9 @@ import ContactUs from "./component/ContactUs";
 import Table from "./component/reactQuery/table";
 import MobileData from "./component/reactQuery/MobileData";
 import Product from "./component/reactQuery/Product";
+import SchoolData from "./component/School-data";
+import TeachersTable from "./component/School-data-tables/TeachersTable";
+import StudentsTable from "./component/School-data-tables/StudentsTable";
 
 const App = () => {
   return (
@@ -31,6 +34,10 @@ const App = () => {
             <Route path="/production" element={<Production />} />
             <Route path="/digital-marketing" element={<DigitalMarketing />} />
             <Route path="/contact-us" element={<ContactUs />} />
+
+            <Route path="/school-data" element={<SchoolData />} />
+            <Route path="/teachers-table" element={<TeachersTable />} />
+            <Route path="/students-table" element={<StudentsTable />} />
             
             {/* principal login signup */}
             <Route path="/admin-login" element={<PrincipalLogin />} />

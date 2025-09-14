@@ -16,12 +16,15 @@ const Navbar = () => {
                 <div className=" flex justify-between items-center px-5" >
 
                     <div className="flex gap-5 " >
-                        <span className="flex items-center gap-5 font-semibold text-2xl text-white "  ><Link to="/home" ><img className="h-12 rounded-full cursor-pointer" src="https://thumbs.dreamstime.com/b/education-badge-logo-design-university-high-school-emblem-education-badge-logo-design-university-high-school-emblem-151924849.jpg" /></Link> <Link to="/home" className="hover:cursor-pointer" >Sahjanand college</Link></span>
+                        <span className="flex items-center gap-5 font-semibold text-2xl text-white "  ><Link to="/school-data" ><img className="h-12 rounded-full cursor-pointer" src="https://thumbs.dreamstime.com/b/education-badge-logo-design-university-high-school-emblem-education-badge-logo-design-university-high-school-emblem-151924849.jpg" /></Link> <Link to="/school-data" className="hover:cursor-pointer" >Sahjanand college</Link></span>
                     </div>
 
                     <span className="text-white text-3xl hover:cursor-pointer sm:flex xl:hidden" onClick={() => setSideBar(!sideBar)} ><TemporaryDrawer /></span>
 
                     <div className="gap-5 hidden xl:flex" >
+                        <div>
+                            <button className="hover:cursor-pointer rounded-md border-2 border-blue-400 hover:text-blue-500 text-blue-300 text-sm p-3" onClick={() => navigate('/home')} >Home</button>
+                        </div>
                         <div>
                             <button className="hover:cursor-pointer rounded-md border-2 border-blue-400 hover:text-blue-500 text-blue-300 text-sm p-3" onClick={() => navigate('/production')} >Production</button>
                         </div>
@@ -93,6 +96,7 @@ const Navbar = () => {
 
                 </div>
             </div>
+            
         </div>
     )
 }
