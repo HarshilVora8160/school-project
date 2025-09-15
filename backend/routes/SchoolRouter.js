@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const StudentSignUp = require('../controller/StudentController');
 const { Department, GetAllDepartments } = require('../controller/TeacherDetartmentController');
-const AdminSignup = require('../controller/AdminController');
+const {AdminSignup,AdminLogin} = require('../controller/AdminController');
 
 // for all routes = Address Data
 router.post('/admin-teacher-department', Department)
@@ -13,7 +13,7 @@ router.get('/get/teacher-department', GetAllDepartments)
 // admin routes
 // router.post('/admin-add-teacher-department')
 router.post('/admin-signup',AdminSignup);
-// router.post('/admin-login');
+router.post('/admin-login',AdminLogin);
 // router.get('/admin');
 
 // // teacher routes
