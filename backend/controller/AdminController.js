@@ -12,13 +12,13 @@ const AdminSignup = async (req, res, next) => {
     employmentDetails,
     educationDetails,
   } = req.body;
+
   const { email, contactNumber, password, address } = contactDetails;
   const { city, state, country } = address;
   const { employmentStatus, salary } = employmentDetails;
   const { qualification, yearOfGraduation } = educationDetails;
 
   const findAdminData = await AdminModule?.find();
-  console.log("findAdminData--------", findAdminData?.length);
 
   if (findAdminData?.length > 0)
     return res.status(201).json({ errorMessage: "admin is already exists!" });
@@ -52,9 +52,6 @@ const AdminSignup = async (req, res, next) => {
 const AdminLogin = async (req, res, next) => {
   try {
     const { email, password, dob, employmentStatus } = req.body;
-    // const checkAdminEmail = await AdminModule.findOne({ email });
-
-    // const checkAdminEmail = await AdminModule?.findOne({ contactDetails: { email: 'vora@vora.vora' } });
     const checkAdminEmail = await AdminModule?.findOne({
       $or: [
         { "contactdetails.email": email },
@@ -63,29 +60,29 @@ const AdminLogin = async (req, res, next) => {
       ],
     });
 
-    const findEmail = await checkAdminEmail?.contactDetails?.email;
+    if (!checkAdminEmail) return res.status(201).json({ errorMessage: "admin not exists!" })
 
-    if(!findEmail === email){
-        return res
-          .status(201)
-          .json({ errorMessage: "admin dosn't exists please signup!" });
+    const hashedPassword = checkAdminEmail?.contactDetails?.password || password
+
+    if (!hashedPassword) {
+      return res.status(500).json({ errorMessage: "Password not found for admin!" });
     }
 
-    const findPassword = await checkAdminEmail?.contactDetails?.password;
-    const comparePassword = await bcrypt?.compare(findPassword, password)
-    console.log("comparePassword------------",comparePassword);
+    const isPasswordValid = await bcrypt.compare(password, hashedPassword);
     
-    if (comparePassword)
-      return res.status(201).json({ errorMessage: "password not matched!" });
+    if (!isPasswordValid) {
+      return res.status(201).json({ errorMessage: "Invalid credentials!" });
+    }
 
     return res.status(200).json({
-      errorMessage: "Admin login successfully!",
+      message: "Admin login successfully!",
       data: { email, password, dob, employmentStatus },
     });
 
   } catch (error) {
     console.log(error);
   }
+
 };
 
 module.exports = { AdminSignup, AdminLogin };

@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import axios from "axios";
 import { GENERAL_API } from "../../../generalApi";
+import { useNavigate } from "react-router-dom";
 
 const PrincipalLogin = () => {
   const [adminLoginError, setAdminLoginError] = useState("");
   const [emailRegexError, setEmailRegexError] = useState("");
+
+  const navigate = useNavigate()
 
   const [adminLogin, setAdminLogin] = useState("");
   console.log("adminLogin--------", adminLogin);
@@ -63,7 +66,10 @@ const PrincipalLogin = () => {
       }
     );
 
-    setAdminLogin(loginAdmin);
+    setAdminLogin(loginAdmin?.data);
+    if(loginAdmin?.data?.message){
+        navigate('/school-data')
+    }
   };
 
   return (

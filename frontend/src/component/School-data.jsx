@@ -21,7 +21,7 @@ const SchoolData = () => {
                     <h3 className="py-3 flex justify-center my-2 p-2 text-2xl" >Admin</h3>
                     <h3 className="py-3 my-2 border border-gray-500 rounded-xl p-2 hover:bg-gray-600" onClick={()=>navigate("/teachers-table")} >Teachers Table</h3>
                     <h3 className="py-3 my-2 border border-gray-500 rounded-xl p-2 hover:bg-gray-600" onClick={()=>navigate("/students-table")} >Student Table</h3>
-                    <h3 className="py-3 my-2 border border-gray-500 rounded-xl p-2 hover:bg-gray-600" onClick={()=>navigate("/teachers-table")} >Students Subjects & Activities</h3>
+                    <h3 className="py-3 my-2 border border-gray-500 rounded-xl p-2 hover:bg-gray-600" onClick={()=>navigate("/home")} >Students Subjects & Activities</h3>
                 </div>
             </div>
         </div>

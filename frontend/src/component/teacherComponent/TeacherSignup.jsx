@@ -80,6 +80,11 @@ const TeacherSignup = () => {
         setSelectedDepartmentSalary(findDepartmentSalary ? findDepartmentSalary?.salary : '')
     }
 
+    const teacherInputHandler = (e) => {
+        console.log("e.target.name-------------", e.target.name);
+        console.log("e.target.value-------------", e.target.value);
+    }
+
     return (
         <div className="bg-gray-900" >
             <div>
@@ -88,65 +93,54 @@ const TeacherSignup = () => {
             <div className="p-[2px] bg-gradient-to-r via-yellow-500 " ></div>
             <div className="flex justify-center items-center " >
                 <div className="bg-gray-800 flex p-8 rounded-xl my-5 border-2 border-gray-700" >
-                    <div className="max-w-sm mx-auto">
-                        <div className="flex justify-center " >
-                            <img className="h-12 rounded-full" src="https://thumbs.dreamstime.com/b/education-badge-logo-design-university-high-school-emblem-education-badge-logo-design-university-high-school-emblem-151924849.jpg" />
-                        </div>
-
+                    <div className="mx-auto">
                         {/* introduction section */}
-                        <div className="flex justify-center py-5 " >
-                            <div>
-                                <div className="flex justify-center" >
-                                    <h1 className="font-semibold text-white text-xl" >Teacher SignUp</h1>
-                                </div>
-                                <div>
-                                    <h1 className="text-sm flex gap-1 text-gray-300" >Already have an account? <Link to='/teacher-login' className="text-blue-500 underline cursor-pointer" > Login</Link></h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-12 gap-4" >
-                            <div className="col-span-12 py-1">
-                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter first name..." required />
+                        <div className="grid grid-cols-12 gap-4 mb-4" >
+                            <div className="col-span-6 py-1">
+                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter first name..." required onChange={teacherInputHandler} />
                             </div>
                             <div className="col-span-6 py-1">
-                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter last name..." required />
+                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter last name..." required onChange={teacherInputHandler} />
                             </div>
                             <div className="col-span-6 py-1">
-                                <input type="date" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                                <input type="date" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required onChange={teacherInputHandler} />
                             </div>
-                        </div>
-                        <div className="py-3 flex" >
-                            <h1 className="me-3 text-md text-gray-400" >Gender : </h1>
-                            <div className="flex gap-1" >
-                                <input type="radio" name="gender" id="male" />
-                                <label htmlFor="male" className="text-gray-400" >Male</label>
-                                <input type="radio" name="gender" id="female" />
-                                <label htmlFor="female" className="text-gray-400" >Female</label>
-                                <input type="radio" name="gender" id="other" />
-                                <label htmlFor="other" className="text-gray-400" >Other</label>
+                            <div className="col-span-6" >
+                                <div className="py-3 flex" >
+                                    <h1 className="me-3 text-md text-gray-400" >Gender : </h1>
+                                    <div className="flex gap-1" >
+                                        <input type="radio" name="gender" id="male" value="male" onChange={teacherInputHandler} />
+                                        <label htmlFor="male" className="text-gray-400" >Male</label>
+                                        <input type="radio" name="gender" id="female" value="female" onChange={teacherInputHandler} />
+                                        <label htmlFor="female" className="text-gray-400" >Female</label>
+                                        <input type="radio" name="gender" id="other" value="other" onChange={teacherInputHandler} />
+                                        <label htmlFor="other" className="text-gray-400" >Other</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {/* introduction section end */}
 
+
                         {/* contact section */}
-                        <div className="py-2" >
+                        <div className="" >
                             <label className="opacity-50 text-white">Contact Details : </label>
                             <div className="py-1">
                                 {/* <label className="text-gray-300">Email : </label> */}
-                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
+                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required onChange={teacherInputHandler} />
                             </div>
                             <div className="py-5">
                                 {/* <label className="text-gray-300" >Phone Number : </label> */}
-                                <input type="number" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter contact number..." required />
+                                <input type="number" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter contact number..." required onChange={teacherInputHandler} />
                             </div>
 
                             {/* Address section */}
                             <label className="opacity-50 text-gray-300" >Address : </label>
-                            <div className="py-1 grid grid-cols-12 gap-2 ">
+                            <div className="grid grid-cols-12 gap-2 ">
                                 <div className="col-span-12" >
                                     {/* <label className="text-gray-300" >City : </label> */}
-                                    <select className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option>Choose a city</option>
+                                    <select onChange={teacherInputHandler} name="city" className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option >Choose a city</option>
                                         {
                                             addressData?.map((ele, idx) => {
                                                 return (
@@ -161,7 +155,7 @@ const TeacherSignup = () => {
 
                                 <div className="col-span-6 py-4" >
                                     {/* <label className="text-gray-300" >State :</label> */}
-                                    <select className="bg-gray-700 border text-gray-300  border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select onChange={teacherInputHandler} name="state" className="bg-gray-700 border text-gray-300  border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option>Select State...</option>
                                         {
                                             addressData?.map((ele, idx) => {
@@ -176,7 +170,7 @@ const TeacherSignup = () => {
                                 </div>
                                 <div className="col-span-6 py-4" >
                                     {/* <label className="text-gray-300" >Country : </label> */}
-                                    <select className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select onChange={teacherInputHandler} name="country" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option>Select Country...</option>
                                         {
                                             addressData?.map((ele, idx) => {
@@ -194,6 +188,7 @@ const TeacherSignup = () => {
                         </div>
                         {/* contact section end */}
 
+
                         {/* Admission section  */}
                         <div>
                             <div className="py-1" >
@@ -202,13 +197,13 @@ const TeacherSignup = () => {
                             <div className="grid grid-cols-12 gap-2" >
                                 <div className="col-span-6" >
                                     {/* <span className="text-gray-300" >Hire date : </span> */}
-                                    <input type="date" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="type your age.." required />
+                                    <input type="date" name="date" onChange={teacherInputHandler} className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="type your age.." required />
                                 </div>
                                 <div className="col-span-6 flex items-center gap-2" >
-                                    <input type="checkbox" className="text-2xl " />
-                                    <p className="text-gray-400" >EmploymentStatus </p>
+                                    <input type="checkbox" className="text-2xl" name="employmentStatus" id="status" onChange={teacherInputHandler} />
+                                    <label className="text-gray-400 hover:cursor-pointer" htmlFor="status" >EmploymentStatus </label>
                                 </div>
-                                <div className="col-span-6 mb-3 py-4" >
+                                <div className="col-span-6  py-4" >
                                     {/* <label className="text-gray-300" >Department : </label> */}
                                     <select
                                         value={selectedDepartment}
@@ -225,7 +220,7 @@ const TeacherSignup = () => {
                                         }
                                     </select>
                                 </div>
-                                <div className="col-span-6 mb-3 py-4" >
+                                <div className="col-span-6 py-4" >
                                     {/* <label className="text-gray-300" >Salary : </label> */}
                                     <select className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         {!selectedDepartmentSalary ? <option>Salary</option> : <option>{selectedDepartmentSalary}</option>}
@@ -236,7 +231,7 @@ const TeacherSignup = () => {
                         {/* Admission section  */}
 
                         {/* Education Details section */}
-                        <div className="mb-5" >
+                        <div className="mb-4" >
                             <div>
                                 <span className="opacity-50 text-gray-300"  >Education Details : </span>
                             </div>
@@ -256,8 +251,8 @@ const TeacherSignup = () => {
                             </div>
                         </div>
                         {/* Education Details section end */}
-                        <div>
-                            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                        <div className="flex justify-center" >
+                            <button type="submit" className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                         </div>
 
                     </div>
