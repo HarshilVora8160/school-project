@@ -7,6 +7,11 @@ const TeacherSignup = () => {
     const [selectedDepartment, setSelectedDepartment] = useState('')
     const [selectedDepartmentSalary, setSelectedDepartmentSalary] = useState('')
 
+    const [teacherObject,setTeacherObject] = useState({
+        firstName:"",
+        lastName:"", 
+    })
+
     const [teacherDepartment, setTeacherDepartment] = useState([
         { department: 'Mathematics', salary: "100000" },
         { department: 'Physics', salary: "120000" },
@@ -97,10 +102,10 @@ const TeacherSignup = () => {
                         {/* introduction section */}
                         <div className="grid grid-cols-12 gap-4 mb-4" >
                             <div className="col-span-6 py-1">
-                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter first name..." required onChange={teacherInputHandler} />
+                                <input type="text" name="firstName" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter first name..." required onChange={teacherInputHandler} />
                             </div>
                             <div className="col-span-6 py-1">
-                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter last name..." required onChange={teacherInputHandler} />
+                                <input type="text" name="lastName" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter last name..." required onChange={teacherInputHandler} />
                             </div>
                             <div className="col-span-6 py-1">
                                 <input type="date" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required onChange={teacherInputHandler} />
