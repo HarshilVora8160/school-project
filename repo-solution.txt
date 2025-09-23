@@ -1,0 +1,14 @@
+remote: {"auth_status":"access_denied_to_user","body":"Permission to HarshilVora8160/school-project.git denied to rajputankit84574-max."}
+fatal: unable to access 'https://github.com/HarshilVora8160/school-project.git/': The requested URL returned error: 403
+
+
+///////// Second error ////////// after this command (git remote set-url origin git@github.com:HarshilVora8160/school-project.git)
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+
+// solution :- 
+git remote remove origin
+git push https://username@github.com/HarshilVora8160/school-project.git
