@@ -7,10 +7,33 @@ const TeacherSignup = () => {
     const [selectedDepartment, setSelectedDepartment] = useState('')
     const [selectedDepartmentSalary, setSelectedDepartmentSalary] = useState('')
 
-    const [teacherObject,setTeacherObject] = useState({
-        firstName:"",
-        lastName:"", 
+    const [teacherObject, setTeacherObject] = useState({
+        firstName: "",
+        lastName: "",
+        dob: "",
+        gender: "",
+        contactDetails: {
+            email: "",
+            contactNumber: "",
+            address: {
+                city: "",
+                state: "",
+                country: ""
+            }
+        },
+        employmentDetails: {
+            department: "",
+            employmentStatus: "",
+            salary: ""
+        },
+        educationDetails: {
+            highestQualification: "",
+            university: "",
+            yearOfGraduation: ""
+        }
     })
+    console.log("teacherObject------------", teacherObject);
+
 
     const [teacherDepartment, setTeacherDepartment] = useState([
         { department: 'Mathematics', salary: "100000" },
@@ -86,8 +109,11 @@ const TeacherSignup = () => {
     }
 
     const teacherInputHandler = (e) => {
-        console.log("e.target.name-------------", e.target.name);
-        console.log("e.target.value-------------", e.target.value);
+        const { name, value } = e.target
+        setTeacherObject({
+            ...teacherObject,
+            [name]: value
+        });
     }
 
     return (
@@ -108,7 +134,7 @@ const TeacherSignup = () => {
                                 <input type="text" name="lastName" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter last name..." required onChange={teacherInputHandler} />
                             </div>
                             <div className="col-span-6 py-1">
-                                <input type="date" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required onChange={teacherInputHandler} />
+                                <input type="date" name="dob" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required onChange={teacherInputHandler} />
                             </div>
                             <div className="col-span-6" >
                                 <div className="py-3 flex" >
@@ -129,70 +155,74 @@ const TeacherSignup = () => {
 
                         {/* contact section */}
                         <div className="" >
-                            <label className="opacity-50 text-white">Contact Details : </label>
-                            <div className="py-1">
-                                {/* <label className="text-gray-300">Email : </label> */}
-                                <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required onChange={teacherInputHandler} />
-                            </div>
-                            <div className="py-5">
-                                {/* <label className="text-gray-300" >Phone Number : </label> */}
-                                <input type="number" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter contact number..." required onChange={teacherInputHandler} />
-                            </div>
-
-                            {/* Address section */}
-                            <label className="opacity-50 text-gray-300" >Address : </label>
-                            <div className="grid grid-cols-12 gap-2 ">
-                                <div className="col-span-12" >
-                                    {/* <label className="text-gray-300" >City : </label> */}
-                                    <select onChange={teacherInputHandler} name="city" className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option >Choose a city</option>
-                                        {
-                                            addressData?.map((ele, idx) => {
-                                                return (
-                                                    <>
-                                                        <option value={ele.city}>{ele.city}</option>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                    </select>
+                            <div className="" >
+                                <label className="opacity-50 text-white">Contact Details : </label>
+                                <div className="py-1">
+                                    {/* <label className="text-gray-300">Email : </label> */}
+                                    <input type="text" name="email" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required onChange={teacherInputHandler} />
+                                </div>
+                                <div className="pt-5">
+                                    <input type="password" name="password" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required onChange={teacherInputHandler} />
+                                    {/* <label className="text-gray-300">Email : </label> */}
+                                </div>
+                                <div className="py-5">
+                                    {/* <label className="text-gray-300" >Phone Number : </label> */}
+                                    <input type="number" name="contactNumber" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter contact number..." required onChange={teacherInputHandler} />
                                 </div>
 
-                                <div className="col-span-6 py-4" >
-                                    {/* <label className="text-gray-300" >State :</label> */}
-                                    <select onChange={teacherInputHandler} name="state" className="bg-gray-700 border text-gray-300  border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option>Select State...</option>
-                                        {
-                                            addressData?.map((ele, idx) => {
-                                                return (
-                                                    <>
-                                                        <option value={ele.state}>{ele.state}</option>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div>
-                                <div className="col-span-6 py-4" >
-                                    {/* <label className="text-gray-300" >Country : </label> */}
-                                    <select onChange={teacherInputHandler} name="country" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option>Select Country...</option>
-                                        {
-                                            addressData?.map((ele, idx) => {
-                                                return (
-                                                    <>
-                                                        <option value={ele.country}>{ele.country}</option>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                    </select>
+                                {/* Address section */}
+                                <label className="opacity-50 text-gray-300" >Address : </label>
+                                <div className="grid grid-cols-12 gap-2 ">
+                                    <div className="col-span-12" >
+                                        {/* <label className="text-gray-300" >City : </label> */}
+                                        <select onChange={teacherInputHandler} name="city" className="bg-gray-700 border border-gray-300 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option >Choose a city</option>
+                                            {
+                                                addressData?.map((ele, idx) => {
+                                                    return (
+                                                        <>
+                                                            <option value={ele.city}>{ele.city}</option>
+                                                        </>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div className="col-span-6 py-4" >
+                                        {/* <label className="text-gray-300" >State :</label> */}
+                                        <select onChange={teacherInputHandler} name="state" className="bg-gray-700 border text-gray-300  border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option>Select State...</option>
+                                            {
+                                                addressData?.map((ele, idx) => {
+                                                    return (
+                                                        <>
+                                                            <option value={ele.state}>{ele.state}</option>
+                                                        </>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                    </div>
+                                    <div className="col-span-6 py-4" >
+                                        {/* <label className="text-gray-300" >Country : </label> */}
+                                        <select onChange={teacherInputHandler} name="country" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option>Select Country...</option>
+                                            {
+                                                addressData?.map((ele, idx) => {
+                                                    return (
+                                                        <>
+                                                            <option value={ele.country}>{ele.country}</option>
+                                                        </>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            {/* Address section end */}
                         </div>
                         {/* contact section end */}
-
 
                         {/* Admission section  */}
                         <div>
@@ -236,7 +266,7 @@ const TeacherSignup = () => {
                         {/* Admission section  */}
 
                         {/* Education Details section */}
-                        <div className="mb-4" >
+                        <div className="mb-2" >
                             <div>
                                 <span className="opacity-50 text-gray-300"  >Education Details : </span>
                             </div>
@@ -251,7 +281,7 @@ const TeacherSignup = () => {
                                 </div>
                                 <div className="col-span-12 pt-4" >
                                     {/* <span className="text-gray-300">University</span> */}
-                                    <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="graduation year" required />
+                                    {/* <input type="text" className="bg-gray-700 text-gray-300 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="graduation year" required /> */}
                                 </div>
                             </div>
                         </div>

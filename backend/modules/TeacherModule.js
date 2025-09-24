@@ -17,10 +17,6 @@ const TeacherSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    lastLoginDate:{
-        type: String,
-        required: true
-    },
     contactDetails:{
         email:{
             type:String,
